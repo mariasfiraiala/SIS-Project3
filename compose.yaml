@@ -1,0 +1,29 @@
+services:
+  attacker:
+    build: ./attacker
+    container_name: attacker
+    environment:
+      - TARGET_URL=http://vulnerable-app:3000/
+    stdin_open: true
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - vulnerable-app
+    networks:
+      - demo-network
+  
+  vulnerable-app:
+    build: ./website
+    container_name: vulnerable-app
+    restart: always
+    volumes:
+      - ./website/flag.txt:/root/flag.txt:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - demo-network
+
+
+networks:
+  demo-network:
+    driver: bridge
