@@ -6,22 +6,29 @@ PoC for exploiting RCE vulnerability in React Server Components in a Next.js app
 
 ## Installation
 
+In order for the following commands to work, make sure you have both Docker and Docker Compose installed on your machine. To install these tools, please refer to the official [documentation](https://docs.docker.com/get-started/get-docker/).
+
+
 ```bash
 docker compose up --build -d
 ```
 
 ## Usage
 
+To start the attacker's interactive shell, run the following command:
+
 ```bash
-docker attach attacker
+docker exec -it attacker ./attack.py
 ```
 
 Then, enter the command you want to execute on the vulnerable server. To exit, type `exit`.
 
 ```
-~ ❯ docker attach attacker
-Enter command to execute (or 'exit' to quit): id
+~ ❯ docker exec -it attacker ./attack.py
+Enter command to execute (or 'exit' to quit): whoami
 -------------------- COMMAND OUTPUT --------------------
-uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel),11(floppy),20(dialout),26(tape),27(video)
+root
 --------------------------------------------------------
 ```
+
+Can you find the `flag` hidden inside the server?
